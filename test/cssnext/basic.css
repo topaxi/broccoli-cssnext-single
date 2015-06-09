@@ -1,0 +1,15 @@
+:root {
+  --greenBG: green;
+  --redHex: #ff0000;
+}
+
+.basic-test {
+  background-color: var(--greenBG);
+}
+.basic-test .foo {
+  font-size: 17px;
+}
+.basic-test .bar {
+  font-size: 20px;
+  color: var(--redHex);
+}

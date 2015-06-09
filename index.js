@@ -1,69 +1,48 @@
+/* global require */
+
 var fs = require('fs')
 var path = require('path')
 var mkdirp = require('mkdirp')
 var includePathSearcher = require('include-path-searcher')
 var CachingWriter = require('broccoli-caching-writer')
-var less = require('less')
+var cssnext = require('cssnext')
 var merge = require('lodash-node/modern/object/merge')
-var RSVP = require('rsvp');
-var writeFile = RSVP.denodeify(fs.writeFile);
+var RSVP = require('rsvp')
+var writeFile = RSVP.denodeify(fs.writeFile)
 
-module.exports = LessCompiler;
+module.exports = CssnextCompiler
 
-LessCompiler.prototype = Object.create(CachingWriter.prototype)
-LessCompiler.prototype.constructor = LessCompiler
+CssnextCompiler.prototype = Object.create(CachingWriter.prototype)
+CssnextCompiler.prototype.constructor = CssnextCompiler
 
-function LessCompiler (sourceTrees, inputFile, outputFile, options) {
-  if (!(this instanceof LessCompiler)) {
-    return new LessCompiler(sourceTrees, inputFile, outputFile, options)
+function CssnextCompiler (sourceTrees, inputFile, outputFile, options) {
+  if (!(this instanceof CssnextCompiler)) {
+    return new CssnextCompiler(sourceTrees, inputFile, outputFile, options)
   }
 
   CachingWriter.apply(this, [arguments[0]].concat(arguments[3]))
 
-  options = options || {};
-  if (options.sourceMap) {
-    if (typeof options.sourceMap !== 'object') {
-      options.sourceMap = {};
-    }
-    if (!options.sourceMap.sourceMapURL) {
-      options.sourceMap.sourceMapURL = outputFile + '.map';
-    }
-  }
+  options = options || {}
 
   this.sourceTrees = sourceTrees
   this.inputFile = inputFile
   this.outputFile = outputFile
-  this.lessOptions = options
+  this.cssnextOptions = options
 }
 
-LessCompiler.prototype.updateCache = function (srcDir, destDir) {
+CssnextCompiler.prototype.updateCache = function (srcDir, destDir) {
   var destFile = destDir + '/' + this.outputFile
 
-  mkdirp.sync(path.dirname(destFile));
+  mkdirp.sync(path.dirname(destFile))
 
-  var lessOptions = {
-    filename: includePathSearcher.findFileSync(this.inputFile, srcDir),
-    paths: srcDir
+  var cssnextOptions = {
+    from: includePathSearcher.findFileSync(this.inputFile, srcDir)
   }
 
-  merge(lessOptions, this.lessOptions)
+  merge(cssnextOptions, this.cssnextOptions)
 
-  lessOptions.paths = [path.dirname(lessOptions.filename)].concat(lessOptions.paths);
-  data = fs.readFileSync(lessOptions.filename, 'utf8');
+  var data = fs.readFileSync(cssnextOptions.from, 'utf8')
+  var output = cssnext(data, cssnextOptions)
 
-  return less.render(data, lessOptions).
-    catch(function(err) {
-      less.writeError(err, lessOptions);
-      throw err;
-    }).
-    then(function (output) {
-      var fileWriterPromises = [writeFile(destFile, output.css, { encoding: 'utf8' }) ];
-      var sourceMapURL = lessOptions.sourceMap && lessOptions.sourceMap.sourceMapURL;
-
-      if (sourceMapURL) {
-        fileWriterPromises.push( writeFile(destDir + '/' + sourceMapURL, output.map, { encoding: 'utf8' }) );
-      }
-
-      return RSVP.Promise.all(fileWriterPromises);
-    })
+  return writeFile(destFile, output, { encoding: 'utf8' })
 }

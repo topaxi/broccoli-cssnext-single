@@ -6,15 +6,15 @@ var RSVP = require('rsvp');
 var path = require('path');
 var broccoli = require('broccoli');
 
-var compileLess = require('../../index');
+var compileCssnext = require('../../index');
 var read = require('./read');
 
-module.exports = function (inputTrees, inputFile, outputFile, lessOptions) {
+module.exports = function (inputTrees, inputFile, outputFile, cssnextOptions) {
   inputTrees = !Array.isArray(inputTrees) ? [inputTrees] : inputTrees;
 
-  var less = compileLess.apply(this, arguments);
+  var cssnext = compileCssnext.apply(this, arguments);
 
-  return new broccoli.Builder(less).build().then(function (results) {
+  return new broccoli.Builder(cssnext).build().then(function (results) {
     return {
       css: read(path.join(results.directory, outputFile)),
       directory: results.directory,

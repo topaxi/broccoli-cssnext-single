@@ -2,6 +2,6 @@
 
 .class {
   width: calc(100% - (10px  - 5px));
-  height: (100px / 4px);
-  font-size: 1 / 4;
+  height: calc(100px / 4px);
+  font-size: calc(1 / 4);
 }
