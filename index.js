@@ -44,5 +44,11 @@ CssnextCompiler.prototype.updateCache = function (srcDir, destDir) {
   var data = fs.readFileSync(cssnextOptions.from, 'utf8')
   var output = cssnext(data, cssnextOptions)
 
-  return writeFile(destFile, output, { encoding: 'utf8' })
+  var p = { css: writeFile(destFile, output, { encoding: 'utf8' }) }
+
+  if (output.map) {
+    p.map = writeFile(destFile + '.map', output.map, { encoding: 'utf8' })
+  }
+
+  return RSVP.hash(p)
 }
