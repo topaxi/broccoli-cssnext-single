@@ -29,14 +29,14 @@ var outputTree = compileCssnext(inputTrees, inputFile, outputFile, options)
 ```
 
 * **`inputTrees`**: An array of trees that act as the include paths for
-  less. If you have a single tree, pass `[tree]`.
+  cssnext. If you have a single tree, pass `[tree]`.
 
 * **`inputFile`**: Relative path of the main `.css` file to compile. This
   file must exist in one of the `inputTrees`.
 
 * **`outputFile`**: Relative path of the output CSS file.
 
-* **`options`**: A hash of options for less.
+* **`options`**: A hash of options for cssnext.
 
 ### Example
 
