@@ -1,1 +1,1 @@
-{"version":3,"sources":["../cssnext/external-sourcemap.css"],"names":[],"mappings":"AAAA;EACE,WAAW;CACZ","file":"../cssnext/external-sourcemap.css","sourcesContent":[".foo {\n  color: red;\n}\n"]}
+{"version":3,"sources":["external-sourcemap.css"],"names":[],"mappings":"AAAA;EACE,WAAW;CACZ","file":"external-sourcemap.css","sourcesContent":[".foo {\n  color: red;\n}\n"]}

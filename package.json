@@ -41,12 +41,11 @@
     "test:debug": "mocha debug test/runner.js --reporter spec"
   },
   "dependencies": {
-    "broccoli-caching-writer": "^0.5.4",
-    "cssnext": "^1.6.0",
+    "broccoli-caching-writer": "^2.1.0",
+    "cssnext": "^1.8.4",
     "include-path-searcher": "^0.1.0",
     "lodash-node": "^3.8.0",
-    "mkdirp": "^0.5.0",
-    "rsvp": "^3.0.17"
+    "mkdirp": "^0.5.0"
   },
   "readmeFilename": "README.md",
   "bugs": {
@@ -54,7 +53,7 @@
   },
   "homepage": "https://github.com/topaxi/broccoli-cssnext-single",
   "devDependencies": {
-    "broccoli": "^0.13.3",
+    "broccoli": "^0.16.8",
     "mocha": "^2.2.4"
   }
 }

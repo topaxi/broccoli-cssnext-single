@@ -23,7 +23,13 @@ describe('cssnextCompiler', function () {
   })
 
   it('can create external sourcemaps', function () {
-    return compare('external-sourcemap', { map: { inline: false } }).then(function(result) {
+    var options = {
+      map: {
+        inline: false
+      }
+    }
+
+    return compare('external-sourcemap', options).then(function(result) {
       assert.equal(
         read(path.join(result.directory, result.outputFile + '.map')),
         read(path.join(expected, result.outputFile + '.map'))
