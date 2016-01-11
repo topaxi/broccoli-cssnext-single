@@ -1,7 +1,7 @@
 {
   "name": "broccoli-cssnext-single",
   "description": "Single-file-output cssnext compiler for Broccoli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Damian Senn",
     "email": "damian.senn@gmail.com"
