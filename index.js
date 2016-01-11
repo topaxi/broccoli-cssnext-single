@@ -6,7 +6,7 @@ var mkdirp              = require('mkdirp')
 var includePathSearcher = require('include-path-searcher')
 var CachingWriter       = require('broccoli-caching-writer')
 var cssnext             = require('cssnext')
-var merge               = require('lodash-node/modern/object/merge')
+var merge               = require('lodash.merge')
 
 module.exports = CssnextCompiler
 
